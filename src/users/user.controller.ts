@@ -1,15 +1,21 @@
 import { Request, Response } from "express"
-import { CreateUserDTO } from './user.dto'
+import { CreateUserDTO, UpdateUserDTO } from './user.dto'
 import { userServices } from "./user.services"
-import { IUser } from "./user.interface"
+import { User } from "./user.entity"
 
 export const createUser = async (req:Request, res:Response) => {
     const {email, password, username}:CreateUserDTO = req.body
     try {
-        const user:IUser = await userServices.create({email, password, username})
+        const user:User | null= await userServices.create({email, password, username})
+        if(!user){
+            return res.status(400).json({
+                msg: 'El nombre de usuario o email ya existen'
+            })
+        }
+        const userFiltered:Partial<User> = user.transformResponse()
         return res.status(200).json({
-            msg:'Create user',
-            user
+            msg:'Usuario registrado',
+            user:userFiltered
         })
     } catch (error) {
         console.log(error)
@@ -19,23 +25,57 @@ export const createUser = async (req:Request, res:Response) => {
         })
     }
 }
-export const updateUser = (req:Request, res:Response) => {
+export const updateUser = async (req:Request, res:Response) => {
+    try {
+        const dataUser:UpdateUserDTO = req.body;
+        const user:User | null = await userServices.update(req.params.id, dataUser);
+        if(!user){
+            return res.status(400).json({
+                msg: 'El usuario no existe'
+            })
+        }
+        const userFiltered:Partial<User> = user.transformResponse() 
+        return res.status(200).json({
+            msg:'Usuario actualizado',
+            user:userFiltered
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            msg:'Error',
+            error
+        })
+    }
+}
+export const getAllUsers = async (req:Request, res:Response) => {
+    const users:Array<User> = await userServices.getAll();
+    const usersFiltered:Array<Partial<User>> = users.map(user => user.transformResponse())
     return res.status(200).json({
-        msg:'Update user'
+        msg:'Todos los usuarios',
+        users: usersFiltered
     })
 }
-export const getAllUsers = (req:Request, res:Response) => {
+export const getUserById = async (req:Request, res:Response) => {
+    const user:User | null = await userServices.getOne(req.params.id);
+    if(!user){
+        return res.status(400).json({
+            msg: 'El usuario no existe'
+        })
+    }
+    const userFiltered:Partial<User> = user.transformResponse()
     return res.status(200).json({
-        msg:'All users'
+        msg:'Id del usuario',
+        user:userFiltered
     })
 }
-export const getUserById = (req:Request, res:Response) => {
+export const deleteUser = async (req:Request, res:Response) => {
+    const response = await userServices.delete(req.params.id);
+    if(!response){
+        return res.status(400).json({
+            msg: 'El usuario no existe'
+        })
+    }
     return res.status(200).json({
-        msg:'User by id'
-    })
-}
-export const deleteUser = (req:Request, res:Response) => {
-    return res.status(200).json({
-        msg:'Delete User'
+        msg:'Usuario eliminado'
     })
 }

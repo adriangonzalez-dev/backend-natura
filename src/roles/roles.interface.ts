@@ -1,4 +1,4 @@
-import { User } from "./user.entity"
+import { User } from "./roles.entity"
 
 export interface IUser {
     id:string

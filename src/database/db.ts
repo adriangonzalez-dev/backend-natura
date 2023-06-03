@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm"
 import { config } from "../config/config"
 import { User } from "../users/user.entity"
+import { Role } from "../roles/roles.entity"
 
 export const AppDataSource: DataSource = new DataSource({
     type: "mysql",
@@ -11,7 +12,7 @@ export const AppDataSource: DataSource = new DataSource({
     database: config.db.database,
     synchronize: true,
     logging: true,
-    entities: [User],
+    entities: [User, Role],
     subscribers: [],
     migrations: [],
 })

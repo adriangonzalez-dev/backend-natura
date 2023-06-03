@@ -1,5 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
-
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Role } from "../roles/roles.entity";
 @Entity()
 export class User extends BaseEntity{
 
@@ -20,9 +20,17 @@ export class User extends BaseEntity{
     })
     active:boolean
 
+    @ManyToOne(() => Role, role => role.users)
+    role: Role;
+
     @CreateDateColumn()
     createdAt:Date
 
     @UpdateDateColumn()
     updatedAt:Date
+
+    transformResponse(): Partial<User> {
+        const { password, ...rest } = this;
+        return rest;
+      }
 }
