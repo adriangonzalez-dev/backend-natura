@@ -2,8 +2,8 @@ import { Router } from 'express'
 import {getAllUsers,getUserById,createUser,deleteUser,updateUser} from './user.controller'
 import { createValidator } from './validations/createValidator';
 import { updateValidator } from './validations/updateValidator';
-import { getErrors } from '../middlewares/getErrors';
-import { idValidator } from '../validations/idValidator';
+import { getErrors } from '../../middlewares/getErrors';
+import { idValidator } from '../../validations/idValidator';
 
 const router:Router = Router();
 

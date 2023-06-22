@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { createRole,deleteRole,getAllRoles,getRoleById,updateRole } from './roles.controller'
 import { createValidator } from './validations/createValidator';
-import { getErrors } from '../middlewares/getErrors';
-import { idValidator } from '../validations/idValidator';
+import { getErrors } from '../../middlewares/getErrors';
+import { idValidator } from '../../validations/idValidator';
 import { updateValidator } from './validations/updateValidator';
 
 const router:Router = Router();

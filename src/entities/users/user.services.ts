@@ -11,11 +11,11 @@ export const userServices = {
         if(!role){
             return null
         }
-        let user = await User.findOne({where:{email:data.email}})
+        let user = await this.findByEmail(data.email)
         if(user){
             return null
         }
-        user = await User.findOne({where:{username:data.username}})
+        user = await this.findByUsername(data.username)
         if(user){
             return null
         }
@@ -53,5 +53,13 @@ export const userServices = {
             return null;
         }
         return await user.remove()
-    }
+    },
+
+    async findByEmail(email:string){
+        return await User.findOne({where:{email}})
+    },
+    async findByUsername(username:string){
+        return await User.findOne({where:{username}})
+    },
+    
 }
