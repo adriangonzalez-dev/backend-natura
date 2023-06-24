@@ -1,17 +1,18 @@
+import { Category } from "../categories/categories.entity";
 
-interface createProductDto {
+export interface createProductDto {
     title:string
     description:string
     price:number
     stock:number
-    category:string;
+    category:Category;
 }
 
-interface updateProductDto {
+export interface updateProductDto {
     title?:string
     description?:string
     price?:number
     stock?:number
     active?:boolean
-    category?:string;
+    category?:Category;
 }
