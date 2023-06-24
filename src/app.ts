@@ -5,6 +5,7 @@ import roleRouter from './entities/roles/roles.routes';
 import authRouter from './entities/auth/auth.routes';
 import categoryRouter from './entities/categories/categories.routes'
 import productsRouter from './entities/products/products.routes'
+import filesRouter from './entities/files/files.routes'
 const app:Application = express();
 
 app.use(cors());
@@ -16,5 +17,6 @@ app.use('/roles', roleRouter)
 app.use('/auth', authRouter)
 app.use('/categories', categoryRouter)
 app.use('/products', productsRouter)
+app.use('/files', filesRouter)
 
 export default app;
