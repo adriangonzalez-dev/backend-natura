@@ -29,5 +29,8 @@ export const authServices = {
     },
     generateToken(data:string){
         return jwt.sign(data, config.secretJwt)
+    },
+    verifyToken(token:string){
+        return jwt.verify(token, config.secretJwt)
     }
 }
