@@ -5,6 +5,7 @@ export interface createProductDto {
     description:string
     price:number
     stock:number
+    image:string
     category:Category;
 }
 
@@ -13,6 +14,7 @@ export interface updateProductDto {
     description?:string
     price?:number
     stock?:number
+    image?:string
     active?:boolean
     category?:Category;
 }

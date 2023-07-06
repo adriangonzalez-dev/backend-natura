@@ -18,6 +18,7 @@ export const productServices = {
         product.price = data.price
         product.category = data.category
         product.stock = data.stock
+        product.image = data.image ?? ''
 
         return await product.save()
     },
@@ -34,6 +35,7 @@ export const productServices = {
         product.price = data.price ?? product.price
         product.category = data.category ?? product.category
         product.stock = data.stock ?? product.stock
+        product.image = data.image ?? product.image
 
         return await product.save()
     },

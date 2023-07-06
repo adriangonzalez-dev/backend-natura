@@ -5,4 +5,5 @@ export const updateValidator = [
     check('description', 'La descripcion debe ser de tipo string').optional().isString(),
     check('price', 'El precio debe ser de tipo number').optional().isNumeric(),
     check('stock', 'El stock debe ser de tipo number').optional().isNumeric(),
+    check('image', 'La imagen debe ser de tipo string').optional().isString(),
 ]

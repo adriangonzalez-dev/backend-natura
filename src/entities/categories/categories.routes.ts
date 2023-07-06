@@ -4,14 +4,15 @@ import { createValidator } from './validations/createValidator';
 import { getErrors } from '../../middlewares/getErrors';
 import { idValidator } from '../../validations/idValidator';
 import { updateValidator } from './validations/updateValidator';
+import { isLogged, isAdmin } from '../../middlewares';
 
 const router:Router = Router();
 
 router
 .get('/', getAllCategories)
-.get('/:id', idValidator, getErrors, getCategoryById)
-.post('/', createValidator, getErrors ,createCategory)
-.put('/:id',idValidator, updateValidator, getErrors, updateCategory)
-.delete('/:id', idValidator, getErrors, deleteCategory);
+.get('/:id', idValidator, isLogged, isAdmin, getErrors, getCategoryById)
+.post('/', createValidator, isLogged, isAdmin, getErrors ,createCategory)
+.put('/:id',idValidator, updateValidator, isLogged, isAdmin, getErrors, updateCategory)
+.delete('/:id', idValidator, isLogged, isAdmin, getErrors, deleteCategory);
 
 export default router

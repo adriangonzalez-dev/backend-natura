@@ -8,10 +8,10 @@ cloudinary.config({
 
 export const filesService = {
     async create(path:string):Promise<UploadApiResponse>{
-            return await cloudinary.uploader.upload(path,{
-                folder:'products_natura',
-                format:'webp'
-            })
+        return await cloudinary.uploader.upload(path,{
+            folder:'products_natura',
+            format:'webp'
+        })
     },
 
     async update(public_id:string, path:string):Promise<UploadApiResponse> {
@@ -26,5 +26,4 @@ export const filesService = {
         return await cloudinary.uploader.destroy(public_id)
     },
 
-    
 }

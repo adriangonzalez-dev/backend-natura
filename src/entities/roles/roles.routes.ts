@@ -1,17 +1,17 @@
 import { Router } from 'express'
 import { createRole,deleteRole,getAllRoles,getRoleById,updateRole } from './roles.controller'
 import { createValidator } from './validations/createValidator';
-import { getErrors } from '../../middlewares/getErrors';
+import { getErrors, isAdmin, isLogged } from '../../middlewares';
 import { idValidator } from '../../validations/idValidator';
 import { updateValidator } from './validations/updateValidator';
 
 const router:Router = Router();
 
 router
-.get('/', getAllRoles)
-.get('/:id', idValidator, getErrors, getRoleById)
-.post('/', createValidator, getErrors ,createRole)
-.put('/:id',idValidator, updateValidator, getErrors, updateRole)
-.delete('/:id', idValidator, getErrors, deleteRole);
+.get('/', isLogged, isAdmin, getAllRoles)
+.get('/:id', idValidator, isLogged, isAdmin, getErrors, getRoleById)
+.post('/', createValidator, isLogged, isAdmin, getErrors ,createRole)
+.put('/:id',idValidator, isLogged, isAdmin, updateValidator, getErrors, updateRole)
+.delete('/:id', idValidator, isLogged, isAdmin, getErrors, deleteRole);
 
 export default router

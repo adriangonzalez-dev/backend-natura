@@ -15,6 +15,9 @@ export class Product extends BaseEntity{
     @Column()
     price:number
 
+    @Column()
+    image:string
+
     @Column({
         default:0
     })
